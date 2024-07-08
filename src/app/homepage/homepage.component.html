@@ -1,0 +1,27 @@
+<div class="container-fluid mx-4">
+
+    <div class="section mt-5">
+        <div class="row d-flex">
+            <div class="col-7 d-flex flex-wrap gap-2">
+                @for(fruit of fruitsList; track fruit) {
+                    <div class="card" style="width: 10rem;">
+                        <img src="{{fruit.image}}" class="" width="70" alt="{{fruit.nom}}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{fruit.nom}}</h5>
+                            <p>{{fruit.prixHT | currency:'EUR'}}</p>
+                            <p>{{fruit.quantite}}</p>
+                            <div class="flex w-100 mb-4">
+                                <button (click)="diminishQuantity(fruit)" class="btn btn-danger mx-1">-</button>
+                                <button (click)="addQuantity(fruit)" class="btn btn-success mx-1">+</button>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100">Ajouter</a>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-5">
+                <h2>Panier</h2>
+            </div>
+        </div>
+    </div>
+</div>
