@@ -24,6 +24,12 @@
             <div class="col col-md-5 mt-5 mt-md-0">
                 <h2 class="mb-4">Panier</h2>
 
+                <div *ngIf="cartItems.length === 0">
+                    <p class="text-center fs-4">Panier vide</p>
+                    <div class="w-20 mx-auto">
+                        <img src="https://static.vecteezy.com/system/resources/previews/011/571/566/non_2x/sad-orange-fruit-with-green-leaf-on-transparent-background-free-png.png" class="img-fluid" alt="Orange triste">
+                    </div>
+                </div>  
                 <div *ngIf="cartItems.length > 0">
                         <div class="border p-2">
 
@@ -40,9 +46,9 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    <ng-template ngFor let-cartItem [ngForOf]="cartItems">
+                                    <ng-template ngFor let-cartItem [ngForOf]="cartItems" let-i=index>
                                         <tr>
-                                            <th scope="row">1</th>
+                                            <th scope="row">{{i+1}}</th>
                                             <td class="fs-5">{{ cartItem.name }}</td>
                                             <td class="text-center">{{ cartItem.quantity }}</td>
                                             <td>{{ cartItem.totalPrice | currency:'EUR' }}</td>
@@ -65,7 +71,7 @@
                                 <tr>
                                   <th></th>
                                   <th scope="col"></th>
-                                  <th scope="col">Quantité article</th>
+                                  <th scope="col">Total Qté</th>
                                   <th scope="col">Total net HT</th>
                                   <th scope="col">Total TTC</th>
                                   <th></th>
@@ -76,7 +82,7 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td>
+                                    <td class="text-center">
                                         {{ totalQty }}
                                     </td>
                                     <td class="fs-5">
@@ -85,12 +91,14 @@
                                     <td class="fs-4">
                                         {{ totalNetPrice | ttcPrice:2 | currency:'EUR' }}
                                     </td>
-
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-success mx-1 mb-5" (click)="cartValidation()">Valider le panier</button>
+                        </div> 
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-warning mx-1" (click)="cartService.clearCart()">Vider le panier</button>
+                            <button type="button" class="btn btn-sm btn-warning mx-1 mt-3" (click)="cartService.clearCart()">Vider le panier</button>
                         </div>                        
                 </div>
 

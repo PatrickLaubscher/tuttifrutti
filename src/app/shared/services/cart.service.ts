@@ -53,7 +53,7 @@ export class CartService {
 
     this.saveCart();
     this.saveTotalNetPrice();
-    this.findTotalQty();
+    this.saveTotalQty();
     location.reload();
   }
 
@@ -73,7 +73,6 @@ export class CartService {
     } else {
       this.items =  [];
     }
-
   }
 
   saveCart(): void {
@@ -83,7 +82,6 @@ export class CartService {
   clearCart() {
     this.items = [];
     localStorage.removeItem("cart_items");
-    location.reload();
   }
 
   removeItem(cartItem:CartItem) {

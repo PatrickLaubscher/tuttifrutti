@@ -4,6 +4,7 @@ import { FruitService } from '../shared/services/fruit.service';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../shared/services/cart.service';
 import { TtcPricePipe } from '../shared/services/pipes/ttc-price.pipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -22,7 +23,7 @@ export class HomepageComponent implements OnInit, AfterViewInit, AfterViewChecke
   totalNetPrice:number = 0;
   totalQty:number = 0;
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef, private router: Router) { }
 
   fetchAllFruits() {
     this.fruitsList = this.fruitService.fetchAllFruits();
@@ -77,6 +78,11 @@ export class HomepageComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.displayCart();
     this.displayTotalNet();
     this.displayTotalQty();
+  }
+
+  cartValidation():void {
+    this.cartService.clearCart();
+    this.router.navigate(['confirmation']);
   }
 
 }
