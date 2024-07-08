@@ -1,12 +1,14 @@
-<div class="container-fluid mx-4">
+<div class="container-fluid px-4">
 
     <div class="section mt-5">
-        <div class="row d-flex">
-            <div class="col-7 d-flex flex-wrap gap-2">
+        <div class="row d-flex flex-column flex-md-row">
+            <div class="col col-md-7 d-flex flex-wrap justify-content-center gap-2">
                 @for(fruit of fruitsList; track fruit) {
                     <div class="card" style="width: 10rem;">
-                        <img src="{{fruit.image}}" class="" width="70" alt="{{fruit.nom}}">
-                        <div class="card-body">
+                        <div class="card-img">
+                            <img src="{{fruit.image}}" class="img-fluid" width="70" alt="{{fruit.nom}}">
+                        </div>
+                        <div class="card-body card-b">
                             <h5 class="card-title">{{fruit.nom}}</h5>
                             <p>{{fruit.prixHT | currency:'EUR'}}</p>
                             <p>{{fruit.quantite}}</p>
@@ -14,13 +16,84 @@
                                 <button (click)="diminishQuantity(fruit)" class="btn btn-danger mx-1">-</button>
                                 <button (click)="addQuantity(fruit)" class="btn btn-success mx-1">+</button>
                             </div>
-                            <a href="#" class="btn btn-primary w-100">Ajouter</a>
+                            <button (click)="cartService.addToCart(fruit)" class="btn btn-primary w-100">Ajouter</button>
                         </div>
                     </div>
                 }
             </div>
-            <div class="col-5">
-                <h2>Panier</h2>
+            <div class="col col-md-5 mt-5 mt-md-0">
+                <h2 class="mb-4">Panier</h2>
+
+                <div *ngIf="cartItems.length > 0">
+                        <div class="border p-2">
+
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Article</th>
+                                    <th scope="col">Quantité</th>
+                                    <th scope="col">Total net HT</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-template ngFor let-cartItem [ngForOf]="cartItems">
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td class="fs-5">{{ cartItem.name }}</td>
+                                            <td class="text-center">{{ cartItem.quantity }}</td>
+                                            <td>{{ cartItem.totalPrice | currency:'EUR' }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-small btn-outline-success mx-1" (click)="cartService.addQtyItem(cartItem)">+</button>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-outline-danger mx-1" (click)="cartService.diminishQtyItem(cartItem)">-</button>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-danger mx-1" (click)="cartService.removeItem(cartItem)">X</button>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </tbody>
+                              </table>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                  <th></th>
+                                  <th scope="col"></th>
+                                  <th scope="col">Quantité article</th>
+                                  <th scope="col">Total net HT</th>
+                                  <th scope="col">Total TTC</th>
+                                  <th></th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        {{ totalQty }}
+                                    </td>
+                                    <td class="fs-5">
+                                        {{ totalNetPrice | currency:'EUR' }}
+                                    </td>
+                                    <td class="fs-4">
+                                        {{ totalNetPrice | ttcPrice:2 | currency:'EUR' }}
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-warning mx-1" (click)="cartService.clearCart()">Vider le panier</button>
+                        </div>                        
+                </div>
+
             </div>
         </div>
     </div>

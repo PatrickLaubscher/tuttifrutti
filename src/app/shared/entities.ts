@@ -6,6 +6,15 @@ export interface Fruit {
     quantite: number
 }
 
+export interface CartItem {
+    productId: number;
+    name: string;
+    quantity: number;
+    unitPrice: number;
+    totalPrice: number;  
+};
+
+
 
 
 
