@@ -92,6 +92,15 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "ssr": false,
+            "repo": "https://github.com/PatrickLaubscher/exam-angular.git",
+            "target": "production",
+            "baseHref": "/exam-angular/"
+          }
         }
       }
     }
